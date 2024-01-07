@@ -1,3 +1,5 @@
+# This script might demonstrate how the IoTDataKit could be used for processing and analyzing data. It will simulate an IoT scenario where sensor data is collected, processed, and analyzed.
+# Feel free to skip it if willing to do so, it is merely an example.
 #!/bin/bash
 
 # Define filenames
