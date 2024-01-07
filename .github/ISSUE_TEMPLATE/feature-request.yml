@@ -43,7 +43,7 @@ body:
     id: terms2
     attributes:
       label: Agreements
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Bizmex/risper/blob/main/CODE_OF_CONDUCT.md), and our [Contribution Guidelines](https://github.com/Bizmex/risper/blob/main/CONTRIBUTING.md). Invalid issues will be removed.
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/mattszymanko/IoTDataKit/blob/main/CODE_OF_CONDUCT.md), and our [Contribution Guidelines](https://github.com/mattszymanko/IoTDataKit/blob/main/CONTRIBUTING.md). Invalid issues will be removed.
       options:
         - I agree to follow the project's Code of Conduct, and Contribution Guidelines
     validations:        
