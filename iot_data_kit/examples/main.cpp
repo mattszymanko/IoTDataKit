@@ -51,6 +51,11 @@ int main() {
         // Display imported data
         std::cout << "Imported Data: ";
         iotData.plotData();
+
+        // Test case to validate the fix for standard deviation calculation issue
+        IoTData testIoTData({1.0, -2.0, 3.0, -4.0, 5.0});
+        std::cout << "Standard Deviation: " << testIoTData.calculateStandardDeviation() << std::endl;
+        
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
