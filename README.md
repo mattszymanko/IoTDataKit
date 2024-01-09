@@ -13,6 +13,9 @@ The IoTDataKit documentation is available [here](https://github.com/mattszymanko
 
 ## Other
 
+### Product Backlog
+IoTDataKit product backlog is located [here](https://github.com/mattszymanko/IoTDataKit/projects).
+
 ### Availability
 IoTDataKit is currently available as a [pre-release](https://github.com/mattszymanko/IoTDataKit/releases), with the goal of implementing further improvements and gathering extensive user feedback.
 
