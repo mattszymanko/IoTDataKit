@@ -44,7 +44,7 @@ double IoTData::calculateStandardDeviation() const {
         sum += std::pow(value - mean, 2);
     }
 
-    return std::sqrt(sum / (data.size() - 1));
+    return std::sqrt(sum / data.size());
 }
 
 void IoTData::scaleData(double scaleFactor) {
