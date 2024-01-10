@@ -34,6 +34,9 @@ public:
 
     // Data visualization functions
     void plotData() const;
+
+    // Rolling mean calculation functions
+    std::vector<double> calculateRollingMean(size_t windowSize) const;
 };
 
 #endif // IOT_DATA_H
