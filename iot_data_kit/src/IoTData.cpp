@@ -97,3 +97,27 @@ void IoTData::plotData() const {
     }
     std::cout << "]" << std::endl;
 }
+
+// Rolling Mean Calculation
+std::vector<double> IoTData::calculateRollingMean(size_t windowSize) const {
+    if (data.empty()) {
+        throw IoTDataEmptyException("Error: No data available for rolling mean calculation.");
+    }
+
+    std::vector<double> rollingMean;
+    rollingMean.reserve(data.size());
+
+    double sum = 0.0;
+
+    for (size_t i = 0; i < data.size(); ++i) {
+        sum += data[i];
+        if (i >= windowSize) {
+            sum -= data[i - windowSize];
+            rollingMean.push_back(sum / windowSize);
+        } else {
+            rollingMean.push_back(sum / (i + 1));
+        }
+    }
+
+    return rollingMean;
+}
