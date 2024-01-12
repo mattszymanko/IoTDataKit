@@ -90,7 +90,7 @@ void IoTData::importDataFromFile(const std::string& filename) {
 }
 
 void IoTData::plotData() const {
-    // Hypothetical data visualization code (not implemented)
+    // Hypothetical data visualization code (not implemented at this time)
     std::cout << "Data plot: [";
     for (const double& value : data) {
         std::cout << value << ", ";
