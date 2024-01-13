@@ -121,3 +121,29 @@ std::vector<double> IoTData::calculateRollingMean(size_t windowSize) const {
 
     return rollingMean;
 }
+
+// Data Resampling
+std::vector<double> IoTData::resampleData(size_t targetSize) const {
+    if (data.empty()) {
+        throw IoTDataEmptyException("Error: No data available for resampling.");
+    }
+
+    std::vector<double> resampledData;
+    resampledData.reserve(targetSize);
+
+    double step = static_cast<double>(data.size() - 1) / (targetSize - 1);
+
+    for (size_t i = 0; i < targetSize; ++i) {
+        double index = i * step;
+        size_t lowerIndex = static_cast<size_t>(std::floor(index));
+        size_t upperIndex = static_cast<size_t>(std::ceil(index));
+
+        double lowerValue = data[lowerIndex];
+        double upperValue = data[upperIndex];
+
+        double interpolatedValue = lowerValue + (index - lowerIndex) * (upperValue - lowerValue);
+        resampledData.push_back(interpolatedValue);
+    }
+
+    return resampledData;
+}

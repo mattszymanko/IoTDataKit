@@ -37,6 +37,9 @@ public:
 
     // Rolling mean calculation functions
     std::vector<double> calculateRollingMean(size_t windowSize) const;
+
+    // Data resampling fuctions
+    std::vector<double> resampleData(size_t targetSize) const;
 };
 
 #endif // IOT_DATA_H
