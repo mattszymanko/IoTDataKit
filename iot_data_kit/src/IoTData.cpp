@@ -29,7 +29,25 @@ double IoTData::calculateMean() const {
         throw IoTDataEmptyException("Error: No data available for mean calculation.");
     }
 
-    return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
+    if (std::any_of(data.begin(), data.end(), std::isnan)) {
+        throw IoTDataException("Error: Data contains NaN (Not a Number) values.");
+    }
+
+    if (std::any_of(data.begin(), data.end(), std::isinf)) {
+        throw IoTDataException("Error: Data contains infinite values.");
+    }
+
+    if (std::any_of(data.begin(), data.end(), [](double value) { return std::isnan(value) || std::isinf(value); })) {
+        throw IoTDataException("Error: Data contains invalid values (NaN or infinity).");
+    }
+
+    double sum = std::accumulate(data.begin(), data.end(), 0.0);
+
+    if (std::isnan(sum) || std::isinf(sum)) {
+        throw IoTDataException("Error: Sum of data values resulted in an invalid value (NaN or infinity).");
+    }
+
+    return sum / data.size();
 }
 
 double IoTData::calculateStandardDeviation() const {
