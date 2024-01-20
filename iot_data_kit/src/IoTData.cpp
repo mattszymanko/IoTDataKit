@@ -104,6 +104,10 @@ void IoTData::importDataFromFile(const std::string& filename) {
         data.push_back(value);
     }
 
+    if (data.empty()) {
+        throw IoTDataFileException("Error: No data found in the input file.");
+    }
+
     inputFile.close();
 }
 
