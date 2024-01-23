@@ -35,6 +35,9 @@ public:
     // Data visualization functions
     void plotData() const;
 
+    // Data trimming functions 
+    void trimData(double trimPercentage);
+
     // Rolling mean calculation functions
     std::vector<double> calculateRollingMean(size_t windowSize) const;
 

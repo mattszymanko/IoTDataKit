@@ -169,3 +169,17 @@ std::vector<double> IoTData::resampleData(size_t targetSize) const {
 
     return resampledData;
 }
+
+// Data Trimming
+void IoTData::trimData(double trimPercentage) {
+    if (data.empty()) {
+        throw IoTDataEmptyException("Error: No data available for trimming.");
+    }
+
+    size_t trimCount = static_cast<size_t>(data.size() * trimPercentage / 200.0);
+
+    if (trimCount > 0) {
+        data.erase(data.begin(), data.begin() + trimCount);
+        data.erase(data.end() - trimCount, data.end());
+    }
+}
