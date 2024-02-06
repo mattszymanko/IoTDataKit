@@ -183,3 +183,27 @@ void IoTData::trimData(double trimPercentage) {
         data.erase(data.end() - trimCount, data.end());
     }
 }
+
+// Moving Average Calculation
+std::vector<double> IoTData::calculateMovingAverage(size_t windowSize) const {
+    if (data.empty()) {
+        throw IoTDataEmptyException("Error: No data available for moving average calculation.");
+    }
+
+    std::vector<double> movingAverage;
+    movingAverage.reserve(data.size());
+
+    double sum = 0.0;
+
+    for (size_t i = 0; i < data.size(); ++i) {
+        sum += data[i];
+        if (i >= windowSize) {
+            sum -= data[i - windowSize];
+            movingAverage.push_back(sum / windowSize);
+        } else {
+            movingAverage.push_back(sum / (i + 1));
+        }
+    }
+
+    return movingAverage;
+}
