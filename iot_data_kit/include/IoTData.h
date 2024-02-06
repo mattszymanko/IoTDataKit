@@ -38,6 +38,9 @@ public:
     // Data trimming functions 
     void trimData(double trimPercentage);
 
+    // Moving average calculation functions
+    std::vector<double> calculateMovingAverage(size_t windowSize) const;
+
     // Rolling mean calculation functions
     std::vector<double> calculateRollingMean(size_t windowSize) const;
 
