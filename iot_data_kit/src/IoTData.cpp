@@ -18,10 +18,11 @@ size_t IoTData::getDataSize() const {
     return data.size();
 }
 
-void IoTData::filterOutliers(double threshold) {
-    data.erase(std::remove_if(data.begin(), data.end(),
-                              [threshold](double value) { return std::abs(value) > threshold; }),
-               data.end());
+void filterOutliers(double threshold) {
+    auto newEnd = std::remove_if(data.begin(), data.end(),
+                                  [threshold](double value) { return std::abs(value) > threshold; });
+
+    data.erase(newEnd, data.end());
 }
 
 double IoTData::calculateMean() const {
