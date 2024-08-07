@@ -3,17 +3,29 @@
 #define IOT_DATA_H
 
 #include <vector>
+#include <functional>
+
+enum class InterpolationMethod {
+    LINEAR,
+    NEAREST_NEIGHBOR,
+    CUBIC_SPLINE
+};
 
 class IoTData {
 private:
     std::vector<double> data;
+    std::vector<double> timestamps;  // New member to store timestamps
+
+    // Helper function for cubic spline interpolation
+    std::vector<double> calculateSplineCoefficients(const std::vector<double>& x, const std::vector<double>& y) const;
 
 public:
     // Constructor
     IoTData(const std::vector<double>& initialData);
+    IoTData(const std::vector<double>& initialData, const std::vector<double>& initialTimestamps);
 
     // Basic data manipulation functions
-    void appendData(double newData);
+    void appendData(double newData, double timestamp);
     void clearData();
     size_t getDataSize() const;
 
@@ -44,8 +56,12 @@ public:
     // Rolling mean calculation functions
     std::vector<double> calculateRollingMean(size_t windowSize) const;
 
-    // Data resampling fuctions
+    // Data resampling functions
     std::vector<double> resampleData(size_t targetSize) const;
+
+    // New Data Interpolation function
+    std::vector<double> interpolateData(const std::vector<double>& newTimestamps, 
+                                        InterpolationMethod method = InterpolationMethod::LINEAR) const;
 };
 
 #endif // IOT_DATA_H
