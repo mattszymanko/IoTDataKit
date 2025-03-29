@@ -1,34 +1,30 @@
 # tests/CMakeLists.txt
 
-# --- GoogleTest ---
-# Find the GoogleTest dependency, fetched in the parent scope
-# If using CMake < 3.11, find_package(GTest REQUIRED) might be needed after manual download/install
+# Find dependencies (already fetched/available from parent scope)
 if(NOT TARGET GTest::gtest_main)
-    include(FetchContent)
-    FetchContent_Declare(
-        googletest
-        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip # Or use GIT_REPOSITORY/GIT_TAG
-        # Consider adding URL_HASH SHA256=... for integrity
-    )
-    # Set options to avoid building unnecessary parts of googletest
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE) # If needed on Windows
-    set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
-    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
-
-    FetchContent_MakeAvailable(googletest)
-    message(STATUS "Fetched and configured GoogleTest.")
+    message(FATAL_ERROR "GoogleTest target not found. Build tests from the top-level directory.")
+endif()
+if(NOT TARGET nlohmann_json::nlohmann_json)
+     message(FATAL_ERROR "nlohmann_json target not found. Build tests from the top-level directory.")
+endif()
+if(NOT TARGET iot_data_kit)
+    message(FATAL_ERROR "iot_data_kit target not found. Build tests from the top-level directory.")
 endif()
 
 
 # --- Test Executable ---
-add_executable(iot_data_kit_tests IoTDataTests.cpp)
+add_executable(iot_data_kit_tests
+    IoTDataTests.cpp
+    DataSetTests.cpp # Add the new test file
+)
 
 # --- Link Dependencies ---
 # Link the main library interface target
 # Link GoogleTest's main target (includes gtest and runs tests)
+# nlohmann_json is linked implicitly via iot_data_kit interface library
 target_link_libraries(iot_data_kit_tests PRIVATE
-    iot_data_kit # Our library interface
-    GTest::gtest_main # GoogleTest framework + main function
+    iot_data_kit       # Our library interface (pulls in nlohmann_json)
+    GTest::gtest_main  # GoogleTest framework + main function
 )
 
 # --- Add Test to CTest ---
